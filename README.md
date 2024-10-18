@@ -1,1 +1,1 @@
-# DevSecOps-lab-1
+# SwiftAura - a DevSecOps implementation for software ⭐
