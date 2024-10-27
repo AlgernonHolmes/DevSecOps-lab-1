@@ -20,18 +20,22 @@ Follow these steps to set up your project:
    cd <repository-directory>
 
 2. **Create a virtual environment**
-
-- <terminal> python -m venv venv
+    ```bash
+    <terminal> python -m venv venv
 
 3. **Activate virtual environment**
-- <terminal> venv\Scripts\activate
+    
+    ```bash
+    <terminal> venv\Scripts\activate
 
 4. **Install necessary dependencies**
-- <terminal> pip install -r dependencies.txt
+    
+    ```bash
+    <terminal> pip install -r dependencies.txt
 
 5. **Create .env**
 
-it should contain the following: 
+    ```bash
     DB_USER=your_username
     DB_PASSWORD=your_password
     DB_HOST=localhost
@@ -39,4 +43,5 @@ it should contain the following:
 
 6. **Run the app**
 
-- <terminal> python app.py run
+    ```bash
+    <terminal> python app.py run
