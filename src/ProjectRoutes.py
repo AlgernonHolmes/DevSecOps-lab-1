@@ -34,12 +34,13 @@ def create_project():
     new_project = Project(
         name=data['name'],
         technologies=data.get('technologies', ''),
-        supervisor=data.get('supervisor', ''),
+        supervisor_id=data.get('supervisor_id'),  # Aquí nos aseguramos de asignar supervisor_id correctamente
         description=data.get('description', '')
     )
     db.session.add(new_project)
     db.session.commit()
     return jsonify({'id': new_project.id}), 201
+
 
 #////////////////////////////////////////////////////
 #////////////////////////////////////////////////////
