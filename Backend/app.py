@@ -3,6 +3,7 @@ from flask import Flask
 from database.db import init_db
 from src.ProjectRoutes import init_app  
 from src.UserRoutes import init_user_routes
+from src.Authentication import init_login_routes
 
 # App initialization
 app = Flask(__name__)
@@ -14,6 +15,7 @@ init_db(app)
 # Routes registration
 init_app(app)
 init_user_routes(app)
+init_login_routes(app)
 
 if __name__ == '__main__':
     app.run(debug=True)
