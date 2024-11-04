@@ -1,6 +1,6 @@
 from flask import Flask
 #from flask_cors import CORS
-from database.db import init_db, db  # Asegúrate de importar `db`
+from database.db import init_db
 from src.ProjectRoutes import init_app  
 from src.UserRoutes import init_user_routes
 
