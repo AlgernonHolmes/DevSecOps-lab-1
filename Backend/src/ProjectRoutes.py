@@ -18,7 +18,7 @@ def get_projects():
         'id': p.id,
         'name': p.name,
         'technologies': p.technologies,
-        'supervisor': p.supervisor,
+        'supervisor_id': p.supervisor_id,
         'description': p.description
     } for p in projects])
 
@@ -34,7 +34,7 @@ def create_project():
     new_project = Project(
         name=data['name'],
         technologies=data.get('technologies', ''),
-        supervisor_id=data.get('supervisor_id'),  # Aquí nos aseguramos de asignar supervisor_id correctamente
+        supervisor_id=data.get('supervisor_id'),  
         description=data.get('description', '')
     )
     db.session.add(new_project)
@@ -55,7 +55,7 @@ def update_project(project_id):
 
     project.name = data.get('name', project.name)
     project.technologies = data.get('technologies', project.technologies)
-    project.supervisor = data.get('supervisor', project.supervisor)
+    project.supervisor_id = data.get('supervisor_id', project.supervisor_id)
     project.description = data.get('description', project.description)
 
     db.session.commit()
@@ -63,7 +63,7 @@ def update_project(project_id):
         'id': project.id,
         'name': project.name,
         'technologies': project.technologies,
-        'supervisor': project.supervisor,
+        'supervisor_id': project.supervisor_id,
         'description': project.description
     })
 

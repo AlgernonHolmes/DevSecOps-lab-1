@@ -1,18 +1,17 @@
 from flask import Flask
-from flask_cors import CORS
-from flask_migrate import Migrate  # Importa Migrate
+#from flask_cors import CORS
 from database.db import init_db, db  # Asegúrate de importar `db`
 from src.ProjectRoutes import init_app  
 from src.UserRoutes import init_user_routes
 
+# App initialization
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000"])
+#CORS(app)
 
-# Inicializar la base de datos y las migraciones
+# Database initialization
 init_db(app)
-migrate = Migrate(app, db)  # Configura Flask-Migrate
 
-# Registra las rutas
+# Routes registration
 init_app(app)
 init_user_routes(app)
 
