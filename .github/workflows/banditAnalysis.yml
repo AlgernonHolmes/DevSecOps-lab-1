@@ -28,4 +28,7 @@ jobs:
           bandit -r Backend/app.py
           bandit -r Backend/src/ProjectModel.py
           bandit -r Backend/src/ProjectRoutes.py
+          bandit -r Backend/src/UserModel.py
+          bandit -r Backend/src/UserRoutes.py
+          bandit -r Backend/src/Authentication.py
           bandit -r Backend/src/database/db.py
