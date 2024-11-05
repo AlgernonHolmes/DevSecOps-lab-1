@@ -10,7 +10,9 @@ This is the frontend for the SwiftAura DevSecOps workshop project. Built with Re
 
 ## Project Structure
 The project is organized as follows:
+
 Frontend
+
 ├── node_modules (ignored by .gitignore)
 ├── src
 │   ├── assets
