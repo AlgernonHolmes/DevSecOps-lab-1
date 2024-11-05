@@ -30,7 +30,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("https://devseccvr.alwaysdata.net/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +81,7 @@ const Login = () => {
         <Box
           sx={{
             width: { xs: '100%', lg: '50%' },
-            backgroundImage: 'url(src/assets/librosBackground.jpg)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1521587760476-6c12a4b040da?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmlibGlvdGVjYXxlbnwwfHwwfHx8MA%3D%3D)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             display: { xs: 'none', lg: 'flex' },

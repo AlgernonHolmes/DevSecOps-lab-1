@@ -46,7 +46,7 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch("http://localhost:5000/projects");
+      const response = await fetch("https://devseccvr.alwaysdata.net/projects");
       const data = await response.json();
       setProjects(data);
     } catch (error) {
@@ -75,7 +75,7 @@ const Projects = () => {
 
   const handleEditSave = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/projects/${selectedProject.id}`, {
+      const response = await fetch(`https://devseccvr.alwaysdata.net/projects/${selectedProject.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const Projects = () => {
 
   const handleDeleteProject = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/projects/${selectedProject.id}`, {
+      const response = await fetch(`https://devseccvr.alwaysdata.net/projects/${selectedProject.id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -122,7 +122,7 @@ const Projects = () => {
 
   const handleAddSave = async () => {
     try {
-      const response = await fetch("http://localhost:5000/projects", {
+      const response = await fetch("https://devseccvr.alwaysdata.net/projects", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
