@@ -3,45 +3,14 @@
 ## Description
 This is a simple CRUD for our DevSecOps workshop.
 
-## Prerequisites
+## Project Structure
+The project is divided into two main folders:
+- **Backend**: Contains the API and backend logic. Please note that the backend is intentionally vulnerable to allow security testing and is designed to be intercepted by tools like Burp Suite.
+- **Frontend**: Contains the user interface with basic security checks. While it includes some basic security measures, its primary focus is to interact with the vulnerable backend.
 
-Before you begin, ensure you have the following installed:
+Each folder has its own README with detailed instructions and setup information for each part.
 
-- Python (version >= 3.7)
-- pip (Python package installer)
-
-## Installation
-
-Follow these steps to set up your project:
-
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd <repository-directory>
-
-2. **Create a virtual environment**
-    ```bash
-    <terminal> python -m venv venv
-
-3. **Activate virtual environment**
-    
-    ```bash
-    <terminal> venv\Scripts\activate
-
-4. **Install necessary dependencies**
-    
-    ```bash
-    <terminal> pip install -r dependencies.txt
-
-5. **Create .env**
-
-    ```bash
-    DB_USER=your_username
-    DB_PASSWORD=your_password
-    DB_HOST=localhost
-    DB_NAME=your_database
-
-6. **Run the app**
-
-    ```bash
-    <terminal> python app.py run
+## Deployment
+The project is deployed and accessible at the following URLs:
+- **Frontend**: [SwiftAura Frontend](https://swift.cveramz.cl)
+- **Backend**: (Intentionally vulnerable, for educational purposes)
