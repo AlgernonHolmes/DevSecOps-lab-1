@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -27,40 +27,32 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import NavBar from '../components/NavBar';
 
 const Projects = () => {
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      name: 'Sistema de Gestión de Inventario',
-      technologies: 'React, Node.js, MongoDB',
-      description: 'Sistema para gestionar el inventario de una tienda en línea',
-      supervisor: 'Ana Martínez'
-    },
-    {
-      id: 2,
-      name: 'Aplicación de Reservas de Restaurantes',
-      technologies: 'Vue.js, Express, PostgreSQL',
-      description: 'Plataforma para realizar reservas en restaurantes locales',
-      supervisor: 'Carlos Gómez'
-    },
-    {
-      id: 3,
-      name: 'Plataforma de Aprendizaje en Línea',
-      technologies: 'Angular, Django, MySQL',
-      description: 'Sistema de gestión de cursos y contenido educativo en línea',
-      supervisor: 'Laura Sánchez'
-    }
-  ]);
-
-  const [anchorEl, setAnchorEl] = useState(null); // Estado para abrir/cerrar el menú de acciones
-  const [selectedProject, setSelectedProject] = useState(null); // Proyecto seleccionado para edición
-  const [editDialogOpen, setEditDialogOpen] = useState(false); // Estado para abrir/cerrar el diálogo de edición
-  const [addDialogOpen, setAddDialogOpen] = useState(false); // Estado para abrir/cerrar el diálogo de agregar
+  const [projects, setProjects] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [newProject, setNewProject] = useState({
     name: '',
     technologies: '',
     description: '',
     supervisor: ''
-  }); // Estado para el nuevo proyecto
+  });
+
+  // Cargar proyectos desde el backend al montar el componente
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/projects");
+      const data = await response.json();
+      setProjects(data);
+    } catch (error) {
+      console.error("Error al obtener proyectos:", error);
+    }
+  };
 
   const handleMenuOpen = (event, project) => {
     setAnchorEl(event.currentTarget);
@@ -81,20 +73,36 @@ const Projects = () => {
     setSelectedProject(null);
   };
 
-  const handleEditSave = () => {
-    setProjects((prevProjects) =>
-      prevProjects.map((project) =>
-        project.id === selectedProject.id ? selectedProject : project
-      )
-    );
-    handleEditClose();
+  const handleEditSave = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/projects/${selectedProject.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(selectedProject),
+      });
+      if (response.ok) {
+        fetchProjects(); // Actualizar la lista de proyectos
+        handleEditClose();
+      }
+    } catch (error) {
+      console.error("Error al actualizar el proyecto:", error);
+    }
   };
 
-  const handleDeleteProject = () => {
-    setProjects((prevProjects) =>
-      prevProjects.filter((project) => project.id !== selectedProject.id)
-    );
-    handleMenuClose();
+  const handleDeleteProject = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/projects/${selectedProject.id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        fetchProjects(); // Actualizar la lista de proyectos
+        handleMenuClose();
+      }
+    } catch (error) {
+      console.error("Error al eliminar el proyecto:", error);
+    }
   };
 
   // Funciones para manejar el diálogo de agregar nuevo proyecto
@@ -112,11 +120,22 @@ const Projects = () => {
     });
   };
 
-  const handleAddSave = () => {
-    const newId = projects.length ? projects[projects.length - 1].id + 1 : 1;
-    const projectToAdd = { id: newId, ...newProject };
-    setProjects([...projects, projectToAdd]);
-    handleAddClose();
+  const handleAddSave = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProject),
+      });
+      if (response.ok) {
+        fetchProjects(); // Actualizar la lista de proyectos
+        handleAddClose();
+      }
+    } catch (error) {
+      console.error("Error al agregar el proyecto:", error);
+    }
   };
 
   return (
@@ -149,7 +168,7 @@ const Projects = () => {
                 boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
                 transition: 'transform 0.3s ease',
               }}
-              onClick={handleAddOpen} // Abre el diálogo de agregar
+              onClick={handleAddOpen}
             >
               Agregar Proyecto
             </Button>
@@ -189,11 +208,7 @@ const Projects = () => {
       </div>
 
       {/* Menú desplegable de acciones */}
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={handleEditOpen}>
           <EditIcon fontSize="small" /> Editar
         </MenuItem>
@@ -211,18 +226,14 @@ const Projects = () => {
             fullWidth
             margin="dense"
             value={selectedProject?.name || ''}
-            onChange={(e) =>
-              setSelectedProject({ ...selectedProject, name: e.target.value })
-            }
+            onChange={(e) => setSelectedProject({ ...selectedProject, name: e.target.value })}
           />
           <TextField
             label="Tecnologías"
             fullWidth
             margin="dense"
             value={selectedProject?.technologies || ''}
-            onChange={(e) =>
-              setSelectedProject({ ...selectedProject, technologies: e.target.value })
-            }
+            onChange={(e) => setSelectedProject({ ...selectedProject, technologies: e.target.value })}
           />
           <TextField
             label="Descripción"
@@ -231,18 +242,14 @@ const Projects = () => {
             rows={3}
             margin="dense"
             value={selectedProject?.description || ''}
-            onChange={(e) =>
-              setSelectedProject({ ...selectedProject, description: e.target.value })
-            }
+            onChange={(e) => setSelectedProject({ ...selectedProject, description: e.target.value })}
           />
           <TextField
             label="Supervisor"
             fullWidth
             margin="dense"
             value={selectedProject?.supervisor || ''}
-            onChange={(e) =>
-              setSelectedProject({ ...selectedProject, supervisor: e.target.value })
-            }
+            onChange={(e) => setSelectedProject({ ...selectedProject, supervisor: e.target.value })}
           />
         </DialogContent>
         <DialogActions>
