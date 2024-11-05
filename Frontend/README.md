@@ -14,23 +14,41 @@ The project is organized as follows:
 Frontend
 
 ├── node_modules (ignored by .gitignore)
+
 ├── src
+
 │   ├── assets
+
 │   │   │   ├── librosBackground.jpg
+
 │   ├── components
+
 │   │   └── NavBar.jsx
+
 │   ├── routes
+
 │   │   ├── Login.jsx
+
 │   │   └── Projects.jsx
+
 │   ├── App.jsx
+
 │   ├── index.css
+
 │   ├── main.jsx
+
 ├── .gitignore
+
 ├── eslint.config.js
+
 ├── index.html
+
 ├── package.json
+
 ├── README.md
+
 ├── vercel.json
+
 └── vite.config.js
 
 
