@@ -104,15 +104,15 @@ jobs:
         with:
           github-token: ${{ secrets.CVR_GITHUB_TOKEN }}
           script: |
-            const { data: pulls } = await github.pulls.list({
+            const { data: pulls } = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
-              head: context.repo.owner + ':Development',
+              head: 'Development',
               base: 'main',
             });
             if (pulls.length === 0) {
-              await github.pulls.create({
+              await github.rest.pulls.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: 'Automated Pull Request from Development to Main',
