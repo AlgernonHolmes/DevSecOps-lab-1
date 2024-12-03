@@ -19,7 +19,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle
-} from '@mui/material';
+} 
+from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
@@ -35,6 +36,9 @@ const Projects = () => {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [addFormType, setAddFormType] = useState(null);
+  const [filterTech, setFilterTech] = useState('');
+  const [filterSupervisor, setFilterSupervisor] = useState('');
+
   const [newProject, setNewProject] = useState({
     name: '',
     technologies: '',
@@ -46,6 +50,33 @@ const Projects = () => {
   useEffect(() => {
     fetchProjects();
   }, []);
+
+  const handleFilterTechChange = (e) => {
+    setFilterTech(e.target.value);
+  };
+  
+  const handleFilterSupervisorChange = (e) => {
+    setFilterSupervisor(e.target.value);
+  };
+
+  const filteredProjects = projects.filter((project) => {
+    const tech = project.technologies ? project.technologies : '';  // Fallback to empty string if undefined or null
+    const supervisor = project.supervisor ? project.supervisor : ''; // Same fallback for supervisor
+  
+    const matchesTechnology = filterTech
+      ? tech.toLowerCase().includes(filterTech.toLowerCase())
+      : true;
+  
+    const matchesSupervisor = filterSupervisor
+      ? supervisor.toLowerCase().includes(filterSupervisor.toLowerCase())
+      : true;
+  
+    return matchesTechnology && matchesSupervisor;
+  });
+  
+  
+  
+  
 
   const fetchProjects = async () => {
     try {
@@ -312,6 +343,25 @@ if (loading) {
             </Button>
           </div>
 
+          <div style={{ display: 'flex', marginBottom: '20px' }}>
+            <TextField
+              label="Filtrar por Tecnología"
+              variant="outlined"
+              size="small"
+              value={filterTech}
+              onChange={handleFilterTechChange}
+              style={{ flex: 1, marginRight: '10px' }}
+            />
+            <TextField
+              label="Filtrar por Supervisor"
+              variant="outlined"
+              size="small"
+              value={filterSupervisor}
+              onChange={handleFilterSupervisorChange}
+              style={{ flex: 1 }}
+            />
+          </div>
+
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -325,7 +375,7 @@ if (loading) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {projects.map((project) => (
+                {filteredProjects.map((project) => (
                   <TableRow key={project.id}>
                     <TableCell>{project.id}</TableCell>
                     <TableCell>{project.name}</TableCell>
