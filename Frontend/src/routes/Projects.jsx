@@ -73,10 +73,11 @@ const Projects = () => {
   
     return matchesTechnology && matchesSupervisor;
   });
-  
-  
-  
-  
+
+  const handleAddClose = () => {
+    handleCloseAllDialogs(); // Close all dialogs
+  };
+
 
   const fetchProjects = async () => {
     try {
@@ -101,35 +102,31 @@ const Projects = () => {
     setEditDialogOpen(true);
     handleMenuClose();
   };
-
+  
   const handleEditClose = () => {
-    setEditDialogOpen(false);
-    setSelectedProject(null);
+    handleCloseAllDialogs(); // Close all dialogs
   };
 
 // Manejo de errores en la subida de varios proyectos
+// Handle file upload and close dialogs
 const handleFileUpload = async (projects) => {
-  try {
-    for (const project of projects) {
-      const response = await fetch("https://devseccvr.alwaysdata.net/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(project),
-      });
+  for (const project of projects) {
+    const response = await fetch("https://devseccvr.alwaysdata.net/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(project),
+    });
 
-      if (!response.ok) {
-        throw new Error(`Error al agregar el proyecto ${project.name}`);
-      }
+    if (!response.ok) {
+      throw new Error(`Error al agregar el proyecto ${project.name}`);
     }
-    fetchProjects(); // Actualizar la lista de proyectos
-    handleAddClose(); // Cerrar el diálogo
-  } catch (error) {
-    console.error("Error al agregar los proyectos:", error);
-    alert('Ocurrió un error al agregar los proyectos. Por favor, intente nuevamente.');
   }
+  fetchProjects(); // Actualizar la lista de proyectos
+  handleCloseAllDialogs(); // Close all dialogs
 };
+
 
 // Parse CSV file content
 const parseCSV = (content) => {
@@ -235,10 +232,6 @@ const handleFileChange = (e) => {
   }
 };
 
-// Mostrar un spinner mientras se procesan los archivos
-if (loading) {
-  return <div>Subiendo proyectos...</div>;
-}
 
   
   const handleEditSave = async () => {
@@ -277,16 +270,18 @@ if (loading) {
   const handleAddOpen = () => {
     setAddDialogOpen(true);
   };
-
-  const handleAddClose = () => {
-    setAddDialogOpen(false);
-    setNewProject({
-      name: '',
-      technologies: '',
-      description: '',
-      supervisor: ''
-    });
-  };
+// Common function to close all dialogs
+const handleCloseAllDialogs = () => {
+  setAddDialogOpen(false);
+  setEditDialogOpen(false);
+  setAddFormType(null); // Reset the form type if it was set
+  setNewProject({
+    name: '',
+    technologies: '',
+    description: '',
+    supervisor: ''
+  });
+};
 
   const handleAddSave = async () => {
     try {
@@ -538,13 +533,20 @@ if (loading) {
       />
     </DialogContent>
     <DialogActions>
-      <Button onClick={handleAddClose} color="primary">
-        Cancelar
-      </Button>
-      <Button onClick={handleFileUpload} color="primary">
-        Subir
-      </Button>
-    </DialogActions>
+  {/* Cancel button: Close dialog */}
+  <Button onClick={handleAddClose} color="primary">
+    Cancelar
+  </Button>
+
+  {/* Subir button: Process file upload and then close the dialog */}
+  <Button onClick={() => { 
+    handleFileUpload();  // Handle file upload
+    handleAddClose();    // Close dialog after upload is completed
+  }} color="primary">
+    Subir
+  </Button>
+</DialogActions>
+
   </Dialog>
 )}
 
