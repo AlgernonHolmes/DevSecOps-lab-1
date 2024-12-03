@@ -10,6 +10,22 @@ permissions:
   pull-requests: write
 
 jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4
+        with:
+          comment-summary-in-pr: always
+          # Puedes habilitar las opciones según tus necesidades.
+          # fail-on-severity: moderate
+          # deny-licenses: GPL-1.0-or-later, LGPL-2.0-or-later
+          # retry-on-snapshot-warnings: true
+
+
+
   bandit_analysis:
     runs-on: ubuntu-latest
 
