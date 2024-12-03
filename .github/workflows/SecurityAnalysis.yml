@@ -15,19 +15,18 @@ jobs:
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v4
         with:
           comment-summary-in-pr: always
-          # Puedes habilitar las opciones según tus necesidades.
-          # fail-on-severity: moderate
-          # deny-licenses: GPL-1.0-or-later, LGPL-2.0-or-later
-          # retry-on-snapshot-warnings: true
-
+          base_ref: 'main'
+          head_ref: 'Development'
 
   bandit_analysis:
     runs-on: ubuntu-latest
-
+    needs: [dependency-review]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -48,7 +47,6 @@ jobs:
   nikto_scan:
     runs-on: ubuntu-latest
     needs: [bandit_analysis]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -109,7 +107,6 @@ jobs:
   create_pull_request:
     runs-on: ubuntu-latest
     needs: [nikto_scan]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
