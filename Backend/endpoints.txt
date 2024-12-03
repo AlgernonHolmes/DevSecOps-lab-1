@@ -1,0 +1,4 @@
+http://0.0.0.0:5000/create_user
+http://0.0.0.0:5000/login
+http://0.0.0.0:5000/projects
+http://0.0.0.0:5000/projects/1

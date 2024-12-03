@@ -1,0 +1,11 @@
+name,technologies,description,supervisor
+Project A,React,Desarrollo de una app web con React,John Doe
+Project B,Angular,Aplicación de gestión de inventarios con Angul,Jane Smith
+Project C,Vue,Plataforma de e-learning en Vue.js,Michael Brown
+Project D,Node.js,API RESTful con Node.js y Express,Laura Wilson
+Project E,Python,Análisis de datos con Python y Panda,David Lee
+Project F,Java,Desarrollo de una app de escritorio con Java,Chris Johnson
+Project G,PHP,Sitio web corporativo en PHP y MySQL,Kate Davis
+Project H,Swift,Aplicación móvil para iOS en Swi,John Clark
+Project I,Go,Servicio backend en Go para procesamiento de datos,Rachel White
+Project J,C#,Desarrollo de un juego 2D en Unity con C#,Alex Turner

@@ -1,0 +1,63 @@
+[
+    {
+      "name": "Project A",
+      "technologies": "React",
+      "description": "Desarrollo de una app web con React",
+      "supervisor": "John Doe"
+    },
+    {
+      "name": "Project B",
+      "technologies": "Angular",
+      "description": "Aplicación de gestión de inventarios con Angular",
+      "supervisor": "Jane Smith"
+    },
+    {
+      "name": "Project C",
+      "technologies": "Vue",
+      "description": "Plataforma de e-learning en Vue.js",
+      "supervisor": "Michael Brown"
+    },
+    {
+      "name": "Project D",
+      "technologies": "Node.js",
+      "description": "API RESTful con Node.js y Express",
+      "supervisor": "Laura Wilson"
+    },
+    {
+      "name": "Project E",
+      "technologies": "Python",
+      "description": "Análisis de datos con Python y Pandas",
+      "supervisor": "David Lee"
+    },
+    {
+      "name": "Project F",
+      "technologies": "Java",
+      "description": "Desarrollo de una app de escritorio con Java",
+      "supervisor": "Chris Johnson"
+    },
+    {
+      "name": "Project G",
+      "technologies": "PHP",
+      "description": "Sitio web corporativo en PHP y MySQL",
+      "supervisor": "Kate Davis"
+    },
+    {
+      "name": "Project H",
+      "technologies": "Swift",
+      "description": "Aplicación móvil para iOS en Swift",
+      "supervisor": "John Clark"
+    },
+    {
+      "name": "Project I",
+      "technologies": "Go",
+      "description": "Servicio backend en Go para procesamiento de datos",
+      "supervisor": "Rachel White"
+    },
+    {
+      "name": "Project J",
+      "technologies": "C#",
+      "description": "Desarrollo de un juego 2D en Unity con C#",
+      "supervisor": "Alex Turner"
+    }
+  ]
+  
